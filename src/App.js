@@ -7,25 +7,30 @@ function App() {
   const [perSec, setPerSec] = useState(500);
   const [timerSec, setTimerSec] = useState(0);
   const [timeString, setTimeString] = useState("00:00:00");
+  const [play, setPlay] = useState(false);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      
       const numValue = Number(value);
       const newValue = numValue + 1;
       const newStringValue = newValue.toString();
       const newStringValuePadded = newStringValue.padStart(8, "0");
+      if(play === true) {
       setValue(newStringValuePadded);
+      }
     }, perSec);
     return () => clearInterval(interval);
-  }, [value]);
+  }, [value, play]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimerSec(timerSec + 1);
+     if(play === true) {
+        setTimerSec(timerSec + 1);
+      }
+   
     }, 1000);
     return () => clearInterval(interval);
-  }
-  , [timerSec]);
+  }, [timerSec, play]);
 
   const timerSecToString = () => {
     const sec = timerSec % 60;
@@ -43,7 +48,7 @@ function App() {
   return (
     <div className="App">
       <div className="App-header">
-        <div className="flex">{"経過時間: " + timeString}</div>
+       
         <div className="flex">
           <button
             className="secButton"
@@ -80,7 +85,13 @@ function App() {
             value={value}
             viewBox={`0 0 256 256`}
           />
-          <h3> {value}</h3>
+          <p> {value}</p>
+          <div className="flex"><h3>{"経過時間: " + timeString}</h3></div>
+          <div className="flex">
+            <button className="secButton" onClick={()=>{
+              setPlay(!play)
+            }}>{play? "STOP":"PLAY"}</button>
+          </div>
         </div>
       </div>
     </div>
