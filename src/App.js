@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 
 function App() {
-  const [value, setValue] = useState("11111111");
+  const [value, setValue] = useState("10000000");
   const [perSec, setPerSec] = useState(1000);
 
   useEffect(() => {
