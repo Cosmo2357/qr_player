@@ -35,11 +35,21 @@ function App() {
   const timerSecToString = () => {
     const sec = timerSec % 60;
     const min = Math.floor(timerSec / 60);
+
     const hour = Math.floor(min / 60);
+    if (hour > 0) {
+     // const hour = Math.floor(min / 60);
+      const min2 = min - hour * 60;
+      const minStr = min2.toString().padStart(2, "0");
+      const secStr = sec.toString().padStart(2, "0");
+      const hourStr = hour.toString().padStart(2, "0");
+      return `${hourStr}:${minStr}:${secStr}`;
+    } else {
     const minStr = min.toString().padStart(2, "0");
     const secStr = sec.toString().padStart(2, "0");
     const hourStr = hour.toString().padStart(2, "0");
     return `${hourStr}:${minStr}:${secStr}`;
+  }
   };
   useEffect(() => {
     setTimeString(timerSecToString());
