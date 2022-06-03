@@ -1,3 +1,4 @@
+# QRコードを指定した秒数ごとに変更して表示します。
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

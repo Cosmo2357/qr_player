@@ -2,10 +2,9 @@ import "./App.css";
 import QRCode from "react-qr-code";
 import { useState, useEffect } from "react";
 
-//import Qr from './components/qr';
+
 function App() {
-  //make value of qr code and increment it every second and rerender the qr code
-  const [value, setValue] = useState("10000000");
+  const [value, setValue] = useState("11111111");
   const [perSec, setPerSec] = useState(1000);
 
   useEffect(() => {
