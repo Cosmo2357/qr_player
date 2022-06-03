@@ -2,23 +2,30 @@ import "./App.css";
 import QRCode from "react-qr-code";
 import { useState, useEffect } from "react";
 
-
 function App() {
   const [value, setValue] = useState("10000000");
-  const [perSec, setPerSec] = useState(1000);
+  const [perSec, setPerSec] = useState(500);
   const [timerSec, setTimerSec] = useState(0);
-  const[timeString, setTimeString] = useState("00:00:00");
+  const [timeString, setTimeString] = useState("00:00:00");
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimerSec(timerSec +1 );
-      const numValue = Number(value)
-      const newValue = numValue +1;
-      const newStringValue  = newValue.toString();
+      
+      const numValue = Number(value);
+      const newValue = numValue + 1;
+      const newStringValue = newValue.toString();
       const newStringValuePadded = newStringValue.padStart(8, "0");
       setValue(newStringValuePadded);
     }, perSec);
     return () => clearInterval(interval);
   }, [value]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimerSec(timerSec + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }
+  , [timerSec]);
 
   const timerSecToString = () => {
     const sec = timerSec % 60;
@@ -28,26 +35,37 @@ function App() {
     const secStr = sec.toString().padStart(2, "0");
     const hourStr = hour.toString().padStart(2, "0");
     return `${hourStr}:${minStr}:${secStr}`;
-  }
+  };
   useEffect(() => {
     setTimeString(timerSecToString());
-  }
-  , [timerSec]);
+  }, [timerSec]);
 
   return (
     <div className="App">
       <div className="App-header">
-      <div className="flex">{"経過時間: " +timeString}</div>
+        <div className="flex">{"経過時間: " + timeString}</div>
         <div className="flex">
-        <button className="secButton" onClick={()=>{
-          if(perSec > 1000){
-          setPerSec(perSec-1000)
-          }
-          }}>&#x2212;</button>
-        <button className="secButton" onClick={()=>{setPerSec(perSec+1000)}}>&#x2b;</button>
+          <button
+            className="secButton"
+            onClick={() => {
+              if (perSec > 500) {
+                setPerSec(perSec - 500);
+              }
+            }}
+          >
+            &#x2212;
+          </button>
+          <button
+            className="secButton"
+            onClick={() => {
+              setPerSec(perSec + 500);
+            }}
+          >
+            &#x2b;
+          </button>
         </div>
-     
-        <div style={{marginBottom: "24px"}}>{perSec / 1000 + "秒間隔"}</div>
+
+        <div style={{ marginBottom: "24px" }}>{perSec / 1000 + "秒間隔"}</div>
         <div
           style={{
             height: "auto",
