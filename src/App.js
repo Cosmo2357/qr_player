@@ -63,8 +63,8 @@ function App() {
           <button
             className="secButton"
             onClick={() => {
-              if (perSec > 500) {
-                setPerSec(perSec - 500);
+              if (perSec > 100) {
+                setPerSec(perSec - 100);
               }
             }}
           >
@@ -73,7 +73,7 @@ function App() {
           <button
             className="secButton"
             onClick={() => {
-              setPerSec(perSec + 500);
+              setPerSec(perSec + 100);
             }}
           >
             &#x2b;
